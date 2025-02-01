@@ -16,15 +16,12 @@
             border-bottom: 1px solid #dee2e6;
         }
 
-        .navbar-dark .navbar-text {
-            color: rgba(255,255,255,.75) !important;
-        }
     </style>
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <span class="navbar-text">
+    <div class="container-fluid">
+<span class="navbar-text text-white">
             <span th:text="${user.email}"></span> with roles:
             <span th:each="role,iterStat : ${user.roles}">
                 <span th:text="${role.name}"></span><th:block th:unless="${iterStat.last}">, </th:block>

@@ -2,6 +2,8 @@ package project.springpp.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -28,9 +30,13 @@ public class AdminController {
     // Показ всех пользователей
     @GetMapping
     public String allUsers(ModelMap model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) auth.getPrincipal();
+
+        model.addAttribute("currentUser", currentUser);
         model.addAttribute("users", userService.findAll());
-        model.addAttribute("user", new User());  // Добавим пустого пользователя для формы добавления
-        model.addAttribute("allRoles", roleService.findAll());  // Передаем все роли
+        model.addAttribute("user", new User());
+        model.addAttribute("allRoles", roleService.findAll());
         return "admin_panel";
     }
 
